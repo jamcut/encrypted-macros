@@ -20,15 +20,15 @@ def main():
 		source_data = infile.readlines()[0]
 	key = args.domain.lower()
 
-	xorWord = lambda ss,cc: ''.join(chr(ord(s)^ord(c)) for s,c in zip(ss,cc*len(source_data))) # shamelessly ganked from stackoverflow
-	encrypt = xorWord(source_data, key)
-	decrypt = xorWord(encrypt ,key)
+	xor_word = lambda ss,cc: ''.join(chr(ord(s)^ord(c)) for s,c in zip(ss,cc*len(source_data))) # shamelessly ganked from stackoverflow
+	encrypt = xor_word(source_data, key)
+	decrypt = xor_word(encrypt ,key)
 	final_payload = base64.b64encode(encrypt)
 	
 	print('[*] Payload to encrypt:\n\n{0}\n').format(source_data)
 	print('[*] Key: {0}').format(key)
 	print('\n[*] Verifying decryption is successful...')
-	if xorWord(encrypt, key) == source_data:
+	if xor_word(encrypt, key) == source_data:
 		print('\n[+] Success!')
 	else:
 		print('[-] Decryption failed, please check parameters and try again.')
